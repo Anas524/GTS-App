@@ -56,6 +56,31 @@ Import shipments and track:
 
 ---
 
+## 📸 Screenshots
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Amazon Revenue Calculator
+![Amazon-calc](screenshots/amazon.png)
+
+### Investment Sheet
+![Investment](screenshots/investment.png)
+
+### Document Hub
+![Docs](screenshots/docs.png)
+
+### Profit & Loss (P&L)
+![P&L](screenshots/p&l.png)
+
+### Metals Ledger
+![Metals](screenshots/metals.png)
+
+### FedEx Tracker
+![Fx-Tracker](screenshots/fx-tracker.png)
+
+---
+
 ## 🛠 Tech Stack
 
 - Laravel (Backend)
