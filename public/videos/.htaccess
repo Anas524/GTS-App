@@ -1,0 +1,19 @@
+# public_html/videos/.htaccess
+
+# Prevent compression on videos (fixes HTTP/2 206 issues)
+<IfModule mod_deflate.c>
+  SetEnvIfNoCase Request_URI "\.mp4$" no-gzip=1 dont-vary
+</IfModule>
+<IfModule mod_brotli.c>
+  SetEnvIfNoCase Request_URI "\.mp4$" no-brotli=1
+</IfModule>
+
+# Correct MIME + range support
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4 .m4v
+</IfModule>
+<IfModule mod_headers.c>
+  Header unset Content-Encoding
+  Header set Cache-Control "public, max-age=2592000, immutable"
+  Header set Accept-Ranges "bytes"
+</IfModule>

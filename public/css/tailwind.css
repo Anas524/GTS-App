@@ -1,0 +1,709 @@
+.us-table th,
+.us-table td,
+.sq-table th,
+.sq-table td {
+  border-bottom: 1px solid #d1d5db;
+  /* only horizontal lines */
+  text-align: center;
+}
+
+td {
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* ===== Header: icon + title + badge (class-based) ===== */
+.header-icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:1.4rem;        /* ~22–24px */
+  line-height:1;
+  color:#01569F;           /* brand tint */
+  vertical-align:middle;
+  margin:0;
+}
+
+/* tints */
+.header-icon.is-sky   { color:#0ea5e9; }  /* sky-500 */
+.header-icon.is-amber { color:#d97706; }  /* amber-600 */
+.header-icon.is-green { color:#16a34a; }  /* green-600 */
+.header-icon.is-default { color:#01569F; } /* brand default */
+
+.header-title{
+  margin: 0;
+  line-height: 1;
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600;
+}
+/* status badge aligns perfectly with title */
+.status-badge{
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  padding: .175rem .45rem;
+  border-radius: .5rem;
+  font-size: .7rem;
+  font-weight: 600;
+  position: relative;
+  top: 0; /* prevents “slightly downward” look */
+}
+.status-open{   background:#E6F9EB; color:#157F3E; }
+.status-closed{ background:#FCE7E7; color:#B42318; }
+
+/* ===== Dashboard button (compact, modern) ===== */
+.btn-dashboard{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.55rem .9rem; border-radius:.75rem;
+  background:#0f172a; color:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.06);
+  transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+}
+.btn-dashboard:hover{ background:#000; }
+.btn-dashboard:active{ transform:translateY(1px); }
+
+/* ===== Set meta (right side) ===== */
+.set-meta{
+  text-align:right; line-height:1.1;
+  font-size:.75rem; color:#6b7280;
+}
+
+/* ===== Header logo (right) — fluid cap ===== */
+.header-logo{
+  height:auto; width:auto;
+  max-height:clamp(44px, 8vh, 84px);
+  object-fit:contain;
+}
+/* If you still have #headerLogo rules, you can remove them. */
+
+/* ===== Bottom tabs — flat style, active top bar ===== */
+.sheet-tab{
+  position:relative;
+  border-radius:0;                   /* no rounded corners */
+  background:transparent;            /* flat */
+  padding:.65rem .9rem;
+  font-weight:500;
+  color:#374151;                     /* gray-700 */
+}
+.sheet-tab:hover{ background:#f3f4f6; }
+.sheet-tab.active{
+  color:#111827;                     /* gray-900 */
+  font-weight:600;
+}
+.sheet-tab.active::before{
+  content:"";
+  position:absolute; inset-inline:0; top:0;
+  height:3px; background:#01569F;    /* brand blue */
+}
+@media (max-width:640px){
+  .sheet-tab{ padding:.6rem .75rem; }
+}
+
+/* ===== keep these mobile helpers you already added ===== */
+.tabs-scroll{ padding-bottom:calc(env(safe-area-inset-bottom) + 8px); }
+.no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+.no-scrollbar::-webkit-scrollbar{ display:none; }
+
+.modal-content {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.btn-close-white {
+  filter: invert(1);
+}
+
+.file-input-modern {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
+  color: #374151;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.file-input-modern:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.print-preview-area img {
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.column-filter::placeholder,
+.date-filter::placeholder {
+  font-weight: normal;
+  /* Removes bold styling */
+}
+
+#sheetContainer {
+  margin-bottom: 100px;
+}
+
+/* White strip + blur appears only when sticky */
+#kpiSticky .kpi-backdrop {
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid #e5e7eb;
+  /* gray-200 */
+}
+
+#kpiSticky.is-stuck .kpi-backdrop {
+  opacity: 1;
+}
+
+#localSalesBody .detail-row>td {
+  background-color: transparent !important;
+}
+
+#localSalesBody .detail-row table,
+#localSalesBody .detail-row thead,
+#localSalesBody .detail-row tbody tr {
+  background-color: transparent !important;
+}
+
+/* Make the entire inner detail section backgroundless */
+.ls-detail-wrapper,
+.ls-detail-wrapper table,
+.ls-detail-wrapper thead,
+.ls-detail-wrapper tbody,
+.ls-detail-wrapper tr,
+.ls-detail-wrapper th,
+.ls-detail-wrapper td {
+  background: transparent !important;
+}
+
+/* Inputs/textareas: borderless until focused */
+.field-inert,
+.field-inert-number,
+.field-inert-select {
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.field-inert:focus,
+.field-inert-number:focus,
+.field-inert-select:focus {
+  background: #fff;
+  border-color: rgb(209, 213, 219);
+  /* gray-300 */
+  outline: 0;
+  box-shadow: 0 0 0 1px rgba(209, 213, 219, .65);
+}
+
+/* Nicer number alignment */
+.field-inert-number {
+  text-align: right;
+}
+
+/* Plain, borderless textareas that only show chrome on edit */
+.ls-plain {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  resize: none;
+  /* remove the corner handle */
+  width: 100%;
+  min-height: 2.25rem;
+  /* ~36px */
+  padding: .375rem .5rem;
+  /* matches your inputs */
+  line-height: 1.35;
+}
+
+.ls-plain:focus {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  /* gray-300 */
+  border-radius: .5rem;
+  /* rounded */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
+  /* ring-blue-500/20 */
+}
+
+/* keep this in your stylesheet */
+.dynamic-textarea,
+.gts-area,
+.receipt-no-input,
+.remarks-input {
+  line-height: 1.25;
+  white-space: pre-wrap;
+  word-break: break-word;
+  resize: none;
+  overflow: hidden;
+  min-height: 36px;
+}
+
+/* Hide write UI, but keep sheet tabs + whitelisted controls */
+html.is-cycle-closed button:not(.sheet-tab):not(.allow-when-closed),
+html.is-cycle-closed [type=button]:not(.sheet-tab):not(.allow-when-closed),
+html.is-cycle-closed [type=submit]:not(.allow-when-closed),
+html.is-cycle-closed .btn:not(.allow-when-closed),
+html.is-cycle-closed .add-row-btn,
+html.is-cycle-closed .btn-add,
+html.is-cycle-closed .btn-primary.add,
+html.is-cycle-closed .addButton,
+html.is-cycle-closed form[action*="store"]:not(.allow-when-closed),
+html.is-cycle-closed .upload-btn,
+html.is-cycle-closed .btn-edit,
+html.is-cycle-closed .btn-delete,
+html.is-cycle-closed .btn-copy {
+  display: none !important;
+}
+
+html.is-cycle-closed .closed-hide {
+  display: none !important;
+}
+
+html.is-cycle-closed .closed-muted {
+  opacity: .55;
+  pointer-events: none;
+}
+
+/* Inputs read-only unless explicitly allowed */
+html.is-cycle-closed input:not(.allow-when-closed),
+html.is-cycle-closed select:not(.allow-when-closed),
+html.is-cycle-closed textarea:not(.allow-when-closed) {
+  pointer-events: none;
+  opacity: .55;
+}
+
+html.is-cycle-closed .action,
+html.is-cycle-closed .action-col {
+  display: none !important;
+}
+
+/* Stretch tables to fill width when set is closed */
+html.is-cycle-closed table {
+  table-layout: auto !important;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+html.is-cycle-closed th,
+html.is-cycle-closed td {
+  width: auto !important;
+}
+
+/* If anything is still hidden, it collapses fully */
+html.is-cycle-closed th.closed-hide,
+html.is-cycle-closed td.closed-hide {
+  display: none !important;
+}
+
+/* cycles responsive tweaks */
+#cycleGrid {
+  min-height: 220px;
+}
+
+@media (min-width: 1024px) {
+  #cycleGrid .centered-loading { min-height: 320px; }
+}
+
+@media (max-width: 767px) {
+
+  /* stack header nicely and make button full-width already handled by HTML classes */
+  .modal-panel {
+    padding: 1rem;
+  }
+
+  .rounded-2xl {
+    border-radius: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+
+  /* make card spacing slightly denser on larger screens */
+  #cycleGrid>* {
+    /* nothing required here, kept for future tuning */
+  }
+}
+
+/* --- Small-screen polish --- */
+
+/* iOS safe-area for sticky bottom bar */
+.tabs-scroll {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+}
+
+/* Hide mobile scrollbars for the tab strip */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Header images scale gracefully */
+#headerLogo { max-width: 100%; height: auto; }
+
+/* Make any wide content scroll horizontally on small screens */
+.responsive-h-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Table responsiveness (non-destructive) */
+@media (max-width: 768px) {
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .us-table, .sq-table, table { min-width: 720px; } /* prevents cramped columns */
+}
+
+/* KPI sticky backdrop already present; make it crisper on mobile */
+@media (max-width: 640px) {
+  #kpiSticky .kpi-backdrop {
+    background: rgba(255,255,255,.95);
+    -webkit-backdrop-filter: saturate(160%) blur(6px);
+    backdrop-filter: saturate(160%) blur(6px);
+  }
+  
+  a[role="button"], a.inline-flex, button {
+    min-height: 44px; /* iOS comfortable tap target */
+  }
+}
+
+/* Closed-set state: ensure tables can still expand and not clip */
+html.is-cycle-closed table {
+  max-width: none;
+}
+
+/* Summary chart responsive sizing */
+.chart-wrap { height: 220px; }               /* ~phone */
+@media (min-width: 400px){ .chart-wrap{ height: 260px; } }
+@media (min-width: 640px){ .chart-wrap{ height: 300px; } }  /* sm */
+@media (min-width: 768px){ .chart-wrap{ height: 360px; } }  /* md */
+@media (min-width: 1024px){ .chart-wrap{ height: 420px; } } /* lg+ */
+
+#summaryChart { width: 100% !important; height: 100% !important; }
+
+/* =========================
+   PM MODALS (Metal Ledger UI)
+   ========================= */
+
+/* Root modal overlay */
+.pm-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;               /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: auto;
+}
+
+/* When opened, JS sets display:flex */
+.pm-modal:not(.hidden){
+  display: flex;
+}
+
+/* Backdrop */
+.pm-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+}
+
+/* Modal container */
+.pm-modal-wrap{
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* Panel card */
+.pm-panel{
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.25);
+  border: 1px solid rgba(15,23,42,0.10);
+  overflow: hidden;
+
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header / Footer */
+.pm-panel-head{
+  border-bottom: 1px solid rgba(15,23,42,0.10);
+  background: #fff;
+}
+.pm-panel-foot{
+  border-top: 1px solid rgba(15,23,42,0.10);
+  background: #fff;
+}
+
+/* Panel body should scroll (not the whole modal) */
+.pm-panel-body{
+  overflow: auto;
+}
+
+/* Subtext */
+.pm-subtext{
+  color: #64748b; /* slate-500 */
+}
+
+/* Close button */
+.pm-close-btn{
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  cursor: pointer;
+}
+.pm-close-btn:hover{
+  border-color: rgba(239,68,68,0.35);
+  color: #dc2626;
+}
+
+/* Buttons */
+.pm-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: transform .06s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+.pm-btn:active{ transform: translateY(1px); }
+
+/* Secondary button */
+.pm-btn-secondary{
+  background: #fff;
+  border-color: rgba(15,23,42,0.14);
+  color: #0f172a;
+}
+.pm-btn-secondary:hover{
+  background: #f8fafc;
+  border-color: rgba(15,23,42,0.20);
+}
+
+/* Primary button */
+.pm-btn-primary{
+  background: #2563eb; /* blue-600 */
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(37,99,235,0.25);
+}
+.pm-btn-primary:hover{
+  background: #1d4ed8; /* blue-700 */
+}
+
+/* Dropzone */
+.pm-dropzone{
+  border: 2px dashed rgba(15,23,42,0.16);
+  border-radius: 16px;
+  background: #f8fafc;
+}
+.pm-dropzone:hover{
+  border-color: rgba(37,99,235,0.45);
+  background: #f1f5ff;
+}
+
+/* Upload grid */
+.pm-upload-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 1024px){
+  .pm-upload-grid{
+    grid-template-columns: repeat(3, 1fr); /* Invoice | Receipt | Note */
+  }
+}
+
+/* Compact dropzone row */
+.pm-dropzone.pm-dropzone--compact{
+  padding: 12px;
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+}
+
+/* Label + button in single line */
+.pm-fileline{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pm-filemeta{ min-width: 0; }
+
+/* Long filenames should wrap */
+.pm-file-name{
+  font-size: 13px;
+  color: #334155;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+/* Existing list filename wrap */
+.pm-existing-name{
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Viewer sizing (wider) */
+.pm-panel--viewer{
+  width: 100%;
+}
+@media (min-width: 1024px){
+  .pm-modal-wrap{
+    max-width: 1200px;
+  }
+}
+
+/* Preview image */
+#matPreviewImg{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Nice scrollbars (optional) */
+#matExistingList, #matViewerList{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148,163,184,0.7) transparent;
+}
+#matExistingList::-webkit-scrollbar,
+#matViewerList::-webkit-scrollbar{
+  width: 10px;
+}
+#matExistingList::-webkit-scrollbar-thumb,
+#matViewerList::-webkit-scrollbar-thumb{
+  background: rgba(148,163,184,0.65);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Viewer list item highlight (when you add ring classes in JS) */
+#matViewerList button.ring-2,
+#attViewerList button.ring-2{
+  outline: 2px solid rgba(100,116,139,0.6);
+}
+
+/* Preview box image behavior */
+#matPreviewImg,
+#attPreviewImg{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive: viewer width */
+@media (min-width: 1024px){
+  .pm-modal-wrap{ max-width: 900px; }
+  .pm-panel--viewer .pm-modal-wrap{ max-width: 1200px; }
+}
+
+/* ---------- Upload layout: 3 boxes in one row on desktop ---------- */
+.pm-upload-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 1024px){
+  .pm-upload-grid{
+    grid-template-columns: repeat(3, 1fr);   /* Invoice | Receipt | Note */
+  }
+}
+
+/* compact dropzone */
+.pm-dropzone.pm-dropzone--compact{
+  padding: 12px;
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+}
+
+/* label + button in single line */
+.pm-fileline{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pm-filemeta{
+  min-width: 0;
+}
+
+.pm-filemeta .pm-file-name{
+  white-space: normal !important;
+  overflow-wrap: anywhere;   /* best for long tokens */
+  word-break: break-word;
+  line-height: 1.2;
+  font-size: 13px;
+  color: #334155;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* in existing list too */
+.pm-existing-name{
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pm-filemeta .pm-file-hint{
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+#matPreviewBox {
+  position: relative;
+  overflow: auto; 
+  background: #f8fafc;
+  cursor: grab;
+}
+
+#matPreviewBox.dragging {
+  cursor: grabbing;
+}
+
+#matPreviewImg {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+
+  transform-origin: center center;
+  transition: transform 0.1s ease;
+}

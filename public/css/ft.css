@@ -1,0 +1,59 @@
+/* Allow tooltip overflow */
+.fx-tooltip{
+  z-index: 999999;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+#fxShipmentTableWrap { overflow: visible !important; }
+#fxShipmentScroll { overflow: auto; }
+
+#fxSummaryScroll { overflow: auto; }
+
+#fxShipmentScroll.dragging {
+  cursor: grabbing !important;
+}
+
+/* Summary table should not force horizontal scrolling */
+#fxSummaryScroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Table layout */
+#fedexInvoicesTable {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Wrap text instead of expanding */
+#fedexInvoicesTable th,
+#fedexInvoicesTable td {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* column widths */
+.fx-col-invoice { width: 120px; }
+.fx-col-date { width: 140px; }
+.fx-col-amount { width: 120px; white-space: nowrap; }
+.fx-col-status { width: 100px; white-space: nowrap; }
+.fx-col-actions { width: 90px; white-space: nowrap; }
+
+/* payment ref + payment status should wrap */
+#fedexInvoicesTable td:nth-child(8),
+#fedexInvoicesTable td:nth-child(9) {
+  white-space: normal;
+  word-break: break-word;
+}
+
+#fxSummaryScroll {
+  position: relative;
+}
+
+#fedexInvoicesTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}

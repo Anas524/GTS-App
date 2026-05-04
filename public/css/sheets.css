@@ -1,0 +1,669 @@
+* {
+    caret-color: transparent;
+    /* Hide typing cursor */
+    user-select: none;
+    /* Prevent text selection */
+}
+
+input,
+textarea,
+select,
+filter {
+    caret-color: auto !important;
+    user-select: text !important;
+}
+
+body {
+    font-family: 'poppins', sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+    cursor: default;
+    padding: 10px;
+    margin: 0;
+}
+
+.header {
+    position: relative !important;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-left img {
+    width: 30px;
+    height: 30px;
+}
+
+.header-left h1 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 600;
+    padding-top: 9px;
+}
+
+.header-right img {
+    width: 150px;
+    height: auto;
+}
+
+.form-section-wrapper {
+    background: #e8f5e9;
+    padding: 60px 0;
+}
+
+.form-section {
+    margin: auto;
+    max-width: 900px;
+    padding: 30px;
+    background: url('/images/investment/Background-img.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.form-section form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.btn-style {
+    font-weight: bold !important;
+}
+
+.summary-cards-wrapper {
+    max-width: 1200px;
+    margin: 40px auto 20px;
+    padding: 0 15px;
+}
+
+.summary-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.summary-cards .card {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+    text-align: center;
+    background-color: #f1f8e9;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.tot-value {
+    font-weight: 600 !important;
+}
+
+.table-section {
+    margin: 50px auto;
+    max-width: 1200px;
+}
+
+.tooltip.show {
+    opacity: 1 !important;
+}
+
+.tooltip-inner {
+    background-color: #2f2f2f !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#rowActions {
+    width: 100px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.view-attachment-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+#pdfPreviewContainer {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    visibility: hidden;
+}
+
+.view-attachment-preview {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.print-preview-area img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+#downloadExcelBtn {
+    background-color: #f8f9fa;
+    color: #000;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#downloadExcelBtn:hover {
+    background-color: #e2e6ea !important;
+    transform: scale(1.02);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table td {
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+table td br {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.table-responsive {
+    margin-bottom: 100px !important;
+    position: relative !important;
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    table-layout: auto;
+    min-width: 100%;
+}
+
+th,
+td {
+    min-width: 120px;
+}
+
+body.modal-open {
+    padding-right: 0 !important;
+    overflow-x: auto !important;
+}
+
+#datePopup {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+    min-width: 220px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-toggle-inside {
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    width: 30px;
+    height: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    cursor: pointer;
+    z-index: 1050;
+    /* Above the bg */
+}
+
+.custom-toggle-inside .bar {
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: 0.3s;
+    margin-bottom: 4px;
+}
+
+.custom-toggle-inside .full-bar {
+    width: 30px;
+}
+
+.custom-toggle-inside .half-bar {
+    width: 15px;
+}
+
+@media (max-width: 675px) {
+    .custom-toggle-inside {
+        bottom: 50px !important;
+        /* Push it above tab buttons */
+        left: 10px;
+    }
+}
+
+.bottom-tabs .tabs-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+.bottom-tabs .btn {
+    margin: 0;
+    border-radius: 1rem 1rem 0 0 !important;
+    border: none;
+    border-top: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+/* ACTIVE BUTTON STYLE */
+.bottom-tabs .btn.active,
+.sheet-tab.active {
+    background-color: #eef1f5 !important;
+    color: black !important;
+    border-top-color: #00569f !important;
+    border-color: #00569f !important;
+}
+
+/* HOVER STYLE FOR NON-ACTIVE BUTTONS ONLY */
+.sheet-tab:not(.active):hover {
+    background-color: #ffefc1 !important;
+    color: #000 !important;
+    border-color: #ffefc1 !important;
+}
+
+#headerIcon[src*="us-client-icon.png"],
+#headerIcon[src*="sq-sheet-icon.png"],
+#headerIcon[src*="rh-sheet-icon.png"],
+#headerIcon[src*="ff-sheet-icon.png"],
+#headerIcon[src*="bl-sheet-icon.png"],
+#headerIcon[src*="ws-sheet-icon.png"],
+#headerIcon[src*="local-sales-icon.png"] {
+    margin-top: 10px;
+}
+
+#headerIcon[src*="local-sales-icon.png"] {
+    height: 40px;
+    width: 40px;
+}
+
+#headerIcon[src*="summary-sheet-icon.png"] {
+    height: 50px;
+    width: 50px;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0 !important;
+    margin: 0 auto;
+}
+
+.us-client-table,
+.sq-client-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0 !important;
+    table-layout: auto;
+}
+
+.card-body.p-0 {
+    padding: 0 !important;
+}
+
+.card.shadow-sm.border-0.mb-5 {
+    margin-bottom: 60px !important;
+}
+
+/* Table cells */
+.us-client-table th,
+.us-client-table td,
+.sq-client-table th,
+.sq-client-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid #dee2e6;
+    /* keep top border */
+    border-bottom: 1px solid #dee2e6;
+    /* keep bottom border */
+}
+
+/* Sticky header */
+.us-client-table thead th,
+.sq-client-table thead th {
+    top: 0;
+    background-color: #212529;
+    color: white;
+    z-index: 2;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Allow wrapping ONLY in remarks column */
+.us-client-table th:nth-child(4),
+.us-client-table td:nth-child(4),
+.sq-client-table th:nth-child(4),
+.sq-client-table td:nth-child(4) {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+/* Filter input styling */
+.us-client-table thead input.column-filter,
+.sq-client-table thead input.column-filter {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Center-align the date filter input */
+#usDateFilterInput,
+#sqDateFilterInput {
+    text-align: center;
+}
+
+/* Wrap table with scroll container */
+.rh-table-wrapper,
+.ff-table-wrapper,
+.bl-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+/* RH Table style */
+.rh-client-table,
+.ff-client-table,
+.bl-client-table {
+    min-width: 1600px;
+    /* Adjust based on total columns */
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+/* Table Cell Styling */
+.rh-client-table th,
+.rh-client-table td,
+.ff-client-table th,
+.ff-client-table td,
+.bl-client-table th,
+.bl-client-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+/* Sticky header */
+.rh-client-table thead th,
+.ff-client-table thead th,
+.bl-client-table thead th {
+    top: 0;
+    background-color: #212529;
+    color: white;
+    z-index: 2;
+}
+
+.rh-client-table td:nth-child(4),
+.rh-client-table th:nth-child(4),
+.ff-client-table td:nth-child(4),
+.ff-client-table th:nth-child(4),
+.bl-client-table td:nth-child(4),
+.bl-client-table th:nth-child(4) {
+    white-space: normal !important;
+    word-wrap: break-word;
+    min-width: 250px;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+/* Filter input field width */
+.rh-client-table thead input.column-filter,
+.ff-client-table thead input.column-filter,
+.bl-client-table thead input.column-filter {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#rh-client-body tr td,
+#ff-client-body tr td,
+#bl-client-body tr td {
+    background-color: #f9f9f9;
+    /* subtle light gray for all rows */
+    vertical-align: middle;
+}
+
+.multi-entry-row td {
+    background-color: #f0f7ff;
+    vertical-align: middle;
+}
+
+#rh-client-body tr,
+#ff-client-body tr,
+#bl-client-body tr {
+    border-radius: 10px;
+}
+
+/* #localSalesTable th,
+#localSalesTable td {
+} */
+    
+#localSalesTable td:nth-child(4) {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-overflow: ellipsis;
+    max-width: 180px; /* Description column */
+}
+
+#localSalesForm .form-control::placeholder {
+    color: #999 !important; /* Light grey */
+    opacity: 1;
+}
+
+.btn-LS-submit {
+    background-color: #9bcff1 !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.btn-LS-submit:hover {
+    background-color: #c1e5fe !important;
+}
+
+.card h3 {
+  font-size: 1.8rem;
+}
+
+.card h4 {
+  font-size: 1.4rem;
+}
+
+.table-sm td, 
+.table-sm th {
+  padding: 0.5rem;
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+.chart-container {
+  margin-top: 2rem;
+}
+
+.summary-box h4,
+.summary-box h5 {
+  margin: 0.5rem 0;
+}
+
+/* Even rows background color */
+.table-striped > tbody > tr:nth-of-type(even) > * {
+    --bs-table-accent-bg: #d1e7dd !important;
+    color: black !important;
+}
+
+/* Hover for all rows */
+.table-striped > tbody > tr:hover > * {
+    --bs-table-accent-bg: #cfe2ff !important;
+    color: black !important;
+}
+
+/* Hover include odd rows */
+.table-striped > tbody > tr:hover > td,
+.table-striped > tbody > tr:hover > th {
+    background-color: #cfe2ff !important;
+    color: black !important;
+}
+
+.drag-scroll tbody {
+    cursor: grab;
+}
+
+.drag-scroll.dragging tbody {
+    cursor: grabbing;
+}
+
+/* for sticky header and filter row */
+.us-client-table thead tr,
+.sq-client-table thead tr,
+.rh-loan-table thead tr{
+  position: sticky;
+  top: -1px;
+  z-index: 2;
+}
+
+/* Make the filter row appear below header row */
+.us-client-table thead tr:nth-child(2),
+.sq-client-table thead tr:nth-child(2) {
+  top: 39px;
+  z-index: 1;
+}
+
+.rh-loan-ledger-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.rh-loan-ledger-wrapper h3 {
+  font-size: 1.8rem;
+}
+
+.rh-loan-ledger-wrapper .card h5 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+#rhLoanTable th,
+#rhLoanTable td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+#rhLoanTable {
+  width: 100%;
+}
+
+/* For only investment table */
+.investment-table thead th {
+    position: sticky;
+    top: -1px;
+    z-index: 2;
+    background: #d1e7dd;
+}
+
+.investment-table thead tr:nth-child(2) th {
+    top: 60px;
+    z-index: 1;
+    background: #d1e7dd;
+}
+
+.investment-table th,
+.investment-table td {
+    min-width: 100px;
+}
+
+.investment-table th:nth-child(3),
+.investment-table td:nth-child(3),
+.investment-table th:nth-child(4),
+.investment-table td:nth-child(4) {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 300px;
+}
+
+.investment-table th:nth-child(5),
+.investment-table td:nth-child(5),
+.investment-table th:nth-child(6),
+.investment-table td:nth-child(6) {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+.investment-table th:nth-child(1),
+.investment-table td:nth-child(1) {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 0;
+    max-width: 75px;
+}
+
+.details-row {
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+}
+
+.details-tab .row>div {
+    border-bottom: 1px solid #eee;
+    padding: 6px 0;
+}
+
+.details-tab {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#data-table tbody tr:nth-child(even) {
+  background-color: #d1e7dd !important;
+}
+
+#data-table tbody tr:hover td {
+  background-color: #cfe2ff !important;
+}
+
