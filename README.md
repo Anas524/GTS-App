@@ -71,7 +71,7 @@ Import shipments and track:
 ![Docs](screenshots/docs.png)
 
 ### Profit & Loss (P&L)
-![P&L](screenshots/p&l.png)
+![P&L](screenshots/pnl.png)
 
 ### Metals Ledger
 ![Metals](screenshots/metals.png)
