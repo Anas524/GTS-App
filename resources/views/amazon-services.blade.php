@@ -217,4 +217,6 @@
     </div>
 </section>
 
+@include('partials.whatsapp-chat')
+
 @endsection

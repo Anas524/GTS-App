@@ -6,10 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 @endphp
 
-@include('partials.topbar')
-
-@include('partials.header')
-
 <section id="admin-leads">
     <div class="dash-shell">
         <div class="dash-headbar">
@@ -124,7 +120,5 @@ use Illuminate\Support\Facades\Storage;
         @endif
     </div>
 </section>
-
-@include('partials.footer')
 
 @endsection

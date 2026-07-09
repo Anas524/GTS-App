@@ -1,23 +1,18 @@
-window.__OPEN_LOGIN__ = document.body.dataset.openLogin === '1';
+window.__OPEN_LOGIN__ = false;
 
 let tabTimeout;
 
 $(document).ready(function () {
-    // Auto-open login tab only when explicitly requested
-    const shouldOpenLoginTab =
-        window.__OPEN_LOGIN__ === true ||
-        new URLSearchParams(window.location.search).has('login');
 
-    if (shouldOpenLoginTab) {
-        const $tab = $('#loginTab');
-        if ($tab.length) {
-            $tab.stop(true, true).fadeIn(250);
-            $('html, body').animate({ scrollTop: $tab.offset().top - 100 }, 400);
+    $(document).on('click', '.tab-trigger[data-tab="loginTab"]', function (e) {
+
+        if (!window.__OPEN_LOGIN__) {
+            e.preventDefault();
+            return false;
         }
-    } else {
-        $('#loginTab').stop(true, true).hide();
-    }
-    
+
+    });
+
     let lastScrollTop = 0;
     const scrollThreshold = 5; // Minimum scroll delta to trigger
     const $topBar = $('.top-bar');
@@ -61,7 +56,7 @@ $(document).ready(function () {
         return window.innerWidth <= 1024;
     }
 
-   function openHeaderMenu() {
+    function openHeaderMenu() {
         // hide header tabs before opening menu
         $('.header-tab').stop(true, true).hide();
 
@@ -133,23 +128,36 @@ $(document).ready(function () {
 
     // Mobile only: open About / Services / Login tabs on click
     $(document).on('click', '#inlineMenu a.tab-trigger', function (e) {
+
         if (!isMobileView()) return;
-    
+
+        const tabId = $(this).data('tab');
+
+        // Block loginTab unless allowed
+        if (tabId === 'loginTab' && !window.__OPEN_LOGIN__) {
+            e.preventDefault();
+            return false;
+        }
+
         e.preventDefault();
         e.stopPropagation();
-    
-        const tabId = $(this).data('tab');
+
         $('.header-tab').stop(true, true).hide();
-    
+
         closeHeaderMenu();
-    
+
         if (tabId && $('#' + tabId).length) {
+
+            // Prevent generic system from controlling loginTab
+            if (tabId === 'loginTab') return;
+
             $('#' + tabId).stop(true, true).slideDown(250);
-    
+
             $('html, body').animate({
                 scrollTop: $('#' + tabId).offset().top - 90
             }, 400);
         }
+
     });
 
     // Header Tab open on hover (generic, non-login)
@@ -159,6 +167,10 @@ $(document).ready(function () {
             clearTimeout(tabTimeout);
 
             const tabId = $(this).data('tab');
+
+            // Completely ignore loginTab in generic tab system
+            if (tabId === 'loginTab') return;
+
             $('.header-tab').not('#' + tabId).stop(true, true).slideUp(100);
             $('#' + tabId).stop(true, true).slideDown(200);
 
@@ -188,7 +200,7 @@ $(document).ready(function () {
             }, 500);
         });
     }
-    
+
     // helper used in multiple places
     function containsFocus($el) {
         const a = document.activeElement;
@@ -280,21 +292,25 @@ $(document).ready(function () {
         const $loginTab = $('#loginTab');
         const $loginTrig = $('[data-tab="loginTab"]');
         let closeTimer = null;
-    
+
         function isMobile() {
             return window.innerWidth <= 1024;
         }
-    
+
         function openLoginTab() {
+
             clearTimeout(closeTimer);
-            $loginTab.stop(true, true).fadeIn(200);
+
+            $loginTab.addClass('show-login');
         }
-    
+
         function closeLoginTab() {
+
             clearTimeout(closeTimer);
-            $loginTab.stop(true, true).fadeOut(150);
+
+            $loginTab.removeClass('show-login');
         }
-    
+
         function scheduleClose() {
             clearTimeout(closeTimer);
             closeTimer = setTimeout(() => {
@@ -303,38 +319,43 @@ $(document).ready(function () {
                 }
             }, 400);
         }
-    
+
         function isHovering($el) {
             return $el.is(':hover');
         }
-    
+
         function containsFocus($el) {
             const active = document.activeElement;
             return active && $el.get(0).contains(active);
         }
-    
-        // Mobile: click only
-        $loginTrig.on('click', function (e) {
+
+        // Login trigger ONLY on click
+
+        $loginTrig.off('click').on('click', function (e) {
+
             e.preventDefault();
-            openLoginTab();
+
+            e.stopPropagation();
+
+            if ($loginTab.is(':visible')) {
+
+                closeLoginTab();
+
+            } else {
+
+                openLoginTab();
+            }
         });
-    
-        // Desktop: hover support only
-        $loginTrig.on('mouseenter', function (e) {
-            if (isMobile()) return;
-            e.preventDefault();
-            openLoginTab();
-        });
-    
+
         $loginTab.on('mouseenter focusin', function () {
             clearTimeout(closeTimer);
             $(this).stop(true, true).show();
         });
-    
+
         $loginTab.on('mouseleave', function () {
             if (!isMobile()) scheduleClose();
         });
-    
+
         $loginTab.on('focusout', function () {
             setTimeout(() => {
                 if (!isMobile() && !isHovering($loginTab) && !containsFocus($loginTab)) {
@@ -342,7 +363,7 @@ $(document).ready(function () {
                 }
             }, 0);
         });
-    
+
         // Close only on click, not touchstart/mousedown
         $(document).on('click', function (e) {
             const $t = $(e.target);
@@ -350,7 +371,7 @@ $(document).ready(function () {
                 closeLoginTab();
             }
         });
-    
+
         $(document).on('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeLoginTab();
@@ -361,10 +382,10 @@ $(document).ready(function () {
     $('#adminLoginForm').on('submit', function () {
         const $btn = $('#loginSubmitBtn');
         const $loader = $('#loginLoader');
-    
+
         $btn.prop('disabled', true).hide();
         $loader.show();
-    
+
         // only fallback UI restore if page stays on same screen
         setTimeout(() => {
             if (document.visibilityState === 'visible') {
@@ -380,15 +401,15 @@ $(document).ready(function () {
         e.stopPropagation();
         $('#chat-popup').fadeToggle(150);
     });
-    
+
     $('#start-chat').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-    
+
         const phoneNumber = "971523194073";
         const message = encodeURIComponent("Hi, I’d like to get in touch with GTS Logistics & Air Cargo Services. Is someone available to chat?");
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
-    
+
         window.location.href = whatsappURL;
     });
 
@@ -396,25 +417,6 @@ $(document).ready(function () {
     $(document).on("click", function (event) {
         if (!$(event.target).closest("#whatsapp-chat, #chat-popup").length) {
             $("#chat-popup").fadeOut();
-        }
-    });
-
-    $('.faq-answer').hide(); // Ensure all answers are hidden on load
-
-    $('.faq-question').on('click', function () {
-        const item = $(this).closest('.faq-item');
-
-        //Slide up all others (optional, if you want only one open at a time)
-        $('.faq-item').not(item).removeClass('active').find('.faq-answer').slideUp(200);
-
-        const answer = item.find('.faq-answer');
-
-        if (item.hasClass('active')) {
-            answer.stop(true, true).slideUp(200);
-            item.removeClass('active');
-        } else {
-            answer.stop(true, true).slideDown(200);
-            item.addClass('active');
         }
     });
 
@@ -429,7 +431,7 @@ $(document).ready(function () {
         $eyeIcon.attr('data-lucide', isPassword ? 'eye-off' : 'eye');
         lucide.createIcons(); // Re-render with new icon
     });
-    
+
     // Back-to-top
     const topBtn = document.getElementById('back-to-top');
     if (topBtn) {
@@ -449,7 +451,7 @@ $(document).ready(function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-    
+
     // ---------- Dashboard: search ----------
     const $dashSearch = $('.dash-searchbar input');
     const $cards = $('#admin-dashboard .tool-card');
@@ -523,25 +525,25 @@ $(document).ready(function () {
 
     // when "Open" clicked — record and go
     $('#admin-dashboard').on('click', '.tool-actions .btn-primary-dark', function (e) {
-      // let users open in new tab/window with ctrl/cmd/middle-click
-      if (e.which === 2 || e.ctrlKey || e.metaKey) return;
-    
-      const $a = $(this);
-      const $card = $a.closest('.tool-card');
-      const id = $card.data('tool-id');
-    
-      // Prefer the anchor's href; fallback to data-open-href
-      const href = $a.attr('href') || $card.data('open-href');
-    
-      if (href) {
-        e.preventDefault();
-        bumpTool(id);
-        window.location.assign(href); // keeps history consistent
-      }
+        // let users open in new tab/window with ctrl/cmd/middle-click
+        if (e.which === 2 || e.ctrlKey || e.metaKey) return;
+
+        const $a = $(this);
+        const $card = $a.closest('.tool-card');
+        const id = $card.data('tool-id');
+
+        // Prefer the anchor's href; fallback to data-open-href
+        const href = $a.attr('href') || $card.data('open-href');
+
+        if (href) {
+            e.preventDefault();
+            bumpTool(id);
+            window.location.assign(href); // keeps history consistent
+        }
     });
 
     applyOrder();
-    
+
     // Password eye toggles for reset modal
     $(document).on('click', '.pw-toggle', function () {
         const id = $(this).data('target');
@@ -565,19 +567,19 @@ $(document).ready(function () {
 
     // Also close modal if top-right X or footer cancel is clicked
     $('#resetCancel, #resetCancelFooter').on('click', closeResetModal);
-    
+
     // Auto scroll for after submit newsletter and contact
     const $newsletterSection = $('#newsletter-section');
-    const $newsletterMsg  = $newsletterSection.find('.contact-success');
+    const $newsletterMsg = $newsletterSection.find('.contact-success');
 
-    if ($newsletterMsg .length) {
+    if ($newsletterMsg.length) {
         $('html, body').animate({
             scrollTop: $newsletterSection.offset().top - 80
         }, 600);
     }
 
     const $contactSection = $('#contact-section');
-    const $contactMsg  = $contactSection.find('.contact-success');
+    const $contactMsg = $contactSection.find('.contact-success');
     const $hasErrors = $contactSection.find('small.e').length > 0;
 
     if ($contactMsg.length || $hasErrors) {
@@ -585,6 +587,498 @@ $(document).ready(function () {
             scrollTop: $contactSection.offset().top - 80
         }, 600);
     }
+
+    // =========================
+    // GTS REVIEWS - NEW STABLE SLIDER
+    // =========================
+
+    const gtsReviewsSwiper = new Swiper(".gtsCylinderSwiper", {
+
+        loop: true,
+
+        slidesPerView: 'auto',
+
+        centeredSlides: true,
+
+        spaceBetween: 26,
+
+        speed: 8000,
+
+        allowTouchMove: true,
+
+        grabCursor: true,
+
+        simulateTouch: true,
+
+        autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
+        },
+
+        freeMode: false,
+
+        observer: true,
+
+        observeParents: true,
+
+        breakpoints: {
+
+            320: {
+                spaceBetween: 18,
+            },
+
+            768: {
+                spaceBetween: 24,
+            },
+
+            1200: {
+                spaceBetween: 26
+            }
+        }
+    });
+
+    // ===================================
+    // MULTI ACTIVE REVIEW CARDS
+    // ===================================
+
+    function updateActiveSlides(swiper) {
+
+        // Remove all active classes first
+        swiper.slides.forEach((slide) => {
+
+            slide.classList.remove(
+                'gts-real-active'
+            );
+        });
+
+        const activeIndex =
+            swiper.activeIndex;
+
+        const totalSlides =
+            swiper.slides.length;
+
+        // MOBILE = only center card
+        if (window.innerWidth <= 768) {
+
+            const activeSlide =
+                swiper.slides[activeIndex];
+
+            if (activeSlide) {
+
+                void activeSlide.offsetWidth;
+
+                activeSlide.classList.add(
+                    'gts-real-active'
+                );
+            }
+
+            return;
+        }
+
+        // DESKTOP = center + left + right
+
+        const indexes = [
+
+            activeIndex - 1,
+            activeIndex,
+            activeIndex + 1
+        ];
+
+        indexes.forEach((index) => {
+
+            // Loop correction
+            let fixedIndex = index;
+
+            if (fixedIndex < 0) {
+                fixedIndex = totalSlides - 1;
+            }
+
+            if (fixedIndex >= totalSlides) {
+                fixedIndex = 0;
+            }
+
+            const slide =
+                swiper.slides[fixedIndex];
+
+            if (!slide) return;
+
+            // Restart animation
+            void slide.offsetWidth;
+
+            slide.classList.add(
+                'gts-real-active'
+            );
+        });
+    }
+
+    /* Init */
+
+    gtsReviewsSwiper.on('init', function () {
+
+        updateActiveSlides(this);
+    });
+
+    /* On slide change */
+
+    gtsReviewsSwiper.on(
+        'slideChangeTransitionStart',
+        function () {
+
+            updateActiveSlides(this);
+        }
+    );
+
+    /* Resize */
+
+    window.addEventListener('resize', () => {
+
+        updateActiveSlides(gtsReviewsSwiper);
+    });
+
+    /* First run */
+
+    setTimeout(() => {
+
+        updateActiveSlides(gtsReviewsSwiper);
+
+    }, 200);
+
+    /* ===================================
+       STATS COUNTER FIX
+    =================================== */
+
+    (function () {
+
+        const statsSection =
+            document.querySelector('.reviews-stats');
+
+        if (!statsSection) return;
+
+        let started = false;
+
+        function runCounters() {
+
+            if (started) return;
+
+            const rect =
+                statsSection.getBoundingClientRect();
+
+            if (rect.top < window.innerHeight - 100) {
+
+                started = true;
+
+                document.querySelectorAll('.stat-item')
+                    .forEach((item) => {
+
+                        const target =
+                            parseInt(item.dataset.count);
+
+                        const num =
+                            item.querySelector('.stat-number');
+
+                        let current = 0;
+
+                        const duration = 2200;
+
+                        const increment =
+                            target / (duration / 16);
+
+                        let suffix = '';
+
+                        const label =
+                            item.querySelector('.stat-label')
+                                .innerText;
+
+                        if (label.includes('%')) {
+                            suffix = '%';
+                        }
+
+                        else if (
+                            label.includes('Countries')
+                        ) {
+                            suffix = '+';
+                        }
+
+                        else if (
+                            label.includes('24/7')
+                        ) {
+                            suffix = '/7';
+                        }
+
+                        const timer = setInterval(() => {
+
+                            current += increment;
+
+                            if (current >= target) {
+
+                                current = target;
+
+                                clearInterval(timer);
+                            }
+
+                            num.innerText =
+                                Math.floor(current) + suffix;
+
+                        }, 16);
+
+                    });
+            }
+        }
+
+        window.addEventListener(
+            'scroll',
+            runCounters
+        );
+
+        runCounters();
+
+    })();
+
+
+    // ===================================
+    // GTS SERVICES PARALLAX + ANIMATION
+    // ===================================
+
+    (function () {
+
+        const panels = document.querySelectorAll('.gts-service-panel');
+
+        if (!panels.length) return;
+
+        function animatePanels() {
+
+            panels.forEach(panel => {
+
+                const rect = panel.getBoundingClientRect();
+
+                const trigger = window.innerHeight * 0.82;
+
+                if (rect.top < trigger) {
+                    panel.classList.add('active');
+                }
+
+                // PARALLAX IMAGE
+                const image = panel.querySelector('.gts-service-image');
+
+                const speed = parseFloat(panel.dataset.speed || 1);
+
+                const move = rect.top * 0.06 * speed;
+
+                image.style.transform = `translateY(${move}px)`;
+            });
+        }
+
+        window.addEventListener('scroll', animatePanels);
+
+        animatePanels();
+
+    })();
+
+    // ===================================
+    // GTS PREMIUM SERVICES REVEAL EFFECT
+    // ===================================
+
+    (function () {
+
+        const serviceItems =
+            $('.gts-service-item');
+
+        function animateServices() {
+
+            const trigger =
+                window.innerHeight * 0.78;
+
+            serviceItems.each(function () {
+
+                const item = $(this);
+
+                const rect =
+                    this.getBoundingClientRect();
+
+                // ENTER VIEW
+                if (rect.top < trigger) {
+
+                    item.addClass('active');
+
+                }
+
+            });
+        }
+
+        // INITIAL STATE
+        serviceItems.removeClass('active');
+
+        // SCROLL
+        $(window).on(
+            'scroll',
+            animateServices
+        );
+
+        // FIRST LOAD
+        setTimeout(() => {
+
+            animateServices();
+
+        }, 200);
+
+    })();
+
+    // Particle Animation
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'absolute w-2 h-2 bg-[#FDCA31]/20 rounded-full pointer-events-none';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = '100%';
+        particle.style.animation = `float-up ${5 + Math.random() * 5}s linear forwards`;
+        $('#particles').append(particle);
+
+        setTimeout(() => particle.remove(), 10000);
+    }
+
+    setInterval(createParticle, 300);
+
+    function initServicesPage() {
+        // Counter Animation
+        const $counters = $('.counter');
+        let counted = false;
+
+        function animateCounters() {
+            $counters.each(function () {
+                const $this = $(this);
+                const target = parseInt($this.data('target'), 10) || 0;
+                const duration = 2000;
+                const startTime = performance.now();
+
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = Math.floor(easeOutQuart * target);
+
+                    $this.text(current + (target > 100 && progress === 1 ? '+' : ''));
+
+                    if (progress < 1) requestAnimationFrame(updateCounter);
+                }
+                requestAnimationFrame(updateCounter);
+            });
+        }
+
+        if ($counters.length) {
+            const statsSection = $counters.first().closest('section')[0];
+            if (statsSection && 'IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting && !counted) {
+                            counted = true;
+                            animateCounters();
+                            io.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                io.observe(statsSection);
+            } else {
+                animateCounters();
+            }
+        }
+
+        // Parallax for hero media
+        const $heroVideo = $('#servicesHero video, #servicesHero img');
+
+        if ($heroVideo.length) {
+
+            $(window).on('scroll.servicesHeroParallax', function () {
+
+                const y = $(window).scrollTop();
+
+                $heroVideo.css(
+                    'transform',
+                    `translateY(${y * 0.15}px) scale(1.03)`
+                );
+
+            });
+
+        }
+
+        console.log('Services Page Loaded');
+    }
+
+    if ($('#gtsServicesPage').length) {
+
+        initServicesPage();
+    }
+
+    // ===== HOMEPAGE FAQ =====
+    $(document).on('click', '.faq-question', function () {
+
+        const $item = $(this).closest('.faq-item');
+
+        $('.faq-item').not($item).removeClass('active');
+        $('.faq-item').not($item)
+            .find('.faq-answer')
+            .stop(true, true)
+            .slideUp(250);
+
+        $item.toggleClass('active');
+
+        if ($item.hasClass('active')) {
+
+            $item.find('.faq-answer')
+                .stop(true, true)
+                .slideDown(250);
+
+        } else {
+
+            $item.find('.faq-answer')
+                .stop(true, true)
+                .slideUp(250);
+        }
+    });
+
+    // =========================================
+    // GTSX SERVICE DETAIL FAQ
+    // =========================================
+
+    // First open
+    $('.gtsx-card.active')
+        .find('.gtsx-answer')
+        .show();
+
+    // Click Event
+    $(document).on('click', '.gtsx-question', function () {
+
+        const $card = $(this).closest('.gtsx-card');
+
+        // IF ALREADY OPEN
+        if ($card.hasClass('active')) {
+
+            $card.removeClass('active');
+
+            $card.find('.gtsx-answer')
+                .stop(true, true)
+                .slideUp(250);
+
+        }
+
+        // OPEN NEW
+        else {
+
+            $('.gtsx-card')
+                .removeClass('active')
+                .find('.gtsx-answer')
+                .stop(true, true)
+                .slideUp(250);
+
+            $card.addClass('active');
+
+            $card.find('.gtsx-answer')
+                .stop(true, true)
+                .slideDown(250);
+
+        }
+
+    });
 });
 
 function animateCardsOnScroll() {
@@ -638,8 +1132,8 @@ function applyOrder() {
 }
 
 function openResetModal() {
-    const $modal = $('#resetPassModal');            
-    const $dashMenu = $('.dash-settings-popover'); 
+    const $modal = $('#resetPassModal');
+    const $dashMenu = $('.dash-settings-popover');
     $dashMenu.hide();
     $modal.addClass('show').attr('aria-hidden', 'false');
     $('body').addClass('modal-open');
@@ -650,7 +1144,7 @@ function openResetModal() {
 }
 
 function closeResetModal() {
-    const $modal = $('#resetPassModal');        
+    const $modal = $('#resetPassModal');
     $modal.removeClass('show').attr('aria-hidden', 'true');
     $('body').removeClass('modal-open');
 }
@@ -672,7 +1166,7 @@ function closeResetModal() {
         const y = window.scrollY;
 
         const scrollingDown = y > lastScrollY;
-        const scrollingUp   = y < lastScrollY;
+        const scrollingUp = y < lastScrollY;
 
         // Show when user scrolls down past threshold
         if (scrollingDown && y > showAt) {
@@ -687,3 +1181,4 @@ function closeResetModal() {
         lastScrollY = y;
     });
 })();
+

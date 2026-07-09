@@ -32,21 +32,42 @@
     + Add Row
   </button>
 
+  <div class="flex flex-wrap gap-6 mb-5 items-center">
+
+    <div class="relative w-[380px]">
+        <input
+            id="materialSearch"
+            class="w-full h-11 rounded-lg border border-gray-300 px-4 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Search invoice, supplier, description..."
+        >
+    </div>
+
+    <div class="relative w-[320px]">
+        <select
+            id="supplierFilter"
+            class="w-full h-11 rounded-lg border border-gray-300 bg-white"
+        >
+            <option value="">All Suppliers</option>
+        </select>
+    </div>
+
+  </div>
+
   <!-- Material Table -->
   <h2 class="text-lg font-semibold mt-8 mb-2">Material Entries</h2>
   <div class="overflow-x-auto">
     <table class="min-w-full border border-gray-300 bg-white">
       <thead class="bg-black text-white">
         <tr>
-          <th class="border p-2 w-5">S.No</th>
-          <th class="border p-2 w-32">Invoice Date</th>
-          <th class="border p-2 w-32">Invoice No</th>
-          <th class="border p-2 w-32">Supplier Name</th>
-          <th class="border p-2 w-32">Brief Description</th>
-          <th class="border p-2 w-32">Total Material</th>
-          <th class="border p-2 w-32">Total Shipping Cost</th>
+          <th class="border p-2 w-[60px]">S.No</th>
+          <th class="border p-2 w-[180px]">Invoice Date</th>
+          <th class="border p-2 w-[180px]">Invoice No</th>
+          <th class="border p-2 w-[300px]">Supplier Name</th>
+          <th class="border p-2 w-[400px]">Brief Description</th>
+          <th class="border p-2 w-[140px]">Total Material</th>
+          <th class="border p-2 w-[140px]">Total Shipping Cost</th>
           @unless ($isClosed)
-          <th class="border p-2 w-24 action-col" data-col="action">Action</th>
+          <th class="border p-2 w-[120px] action-col" data-col="action">Action</th>
           @endunless
         </tr>
       </thead>

@@ -33,7 +33,9 @@
                     <a href="{{ route('admin.dashboard') }}">Dashboard</a>
                 @endif
             @else
-                <a href="javascript:void(0);" class="tab-trigger" data-tab="loginTab">Login</a>
+                @if(session('show_admin_login'))
+                    <a href="javascript:void(0);" class="tab-trigger" data-tab="loginTab">Login</a>
+                @endif
             @endauth
         </nav>
     </div>

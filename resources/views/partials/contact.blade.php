@@ -260,9 +260,10 @@
 
             // smooth scroll (no shake)
             const $form = $('#contactForm');
-            if (!$form.length) return;
+            const $section = $('#contact-section');
+            if (!$form.length || !$section.length) return;
 
-            const target = Math.max($form.offset().top - 120, 0);
+            const target = Math.max($section.offset().top - 90, 0);
             const current = $(window).scrollTop();
 
             // stop any ongoing animations to prevent bounce
@@ -278,6 +279,12 @@
                 });
             }
         });
+
+        if (new URLSearchParams(window.location.search).get('quote') === '1') {
+            setTimeout(function() {
+                $('.js-open-quote').first().trigger('click');
+            }, 300);
+        }
     });
 </script>
 @endpush

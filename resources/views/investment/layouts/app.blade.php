@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTS Investment Sheets</title>
-    <link rel="icon" href="{{ asset('images/investment/GTS-web-logo.png') }}">
+    <link rel="icon" href="{{ asset('images/gtslogo.png') }}"> 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -21,10 +21,16 @@
     <link rel="stylesheet" href="{{ asset('css/tailwind.css?v=7') }}">
     <!-- Tippy -->
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css" />
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- Core JS libs -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    <!-- Core JS libs -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -364,9 +370,14 @@
     <script src="{{ asset('js/sheets.js?v=77') }}"></script>
     <script src="{{ asset('js/dynamic.js?v=52') }}"></script>
     <script src="{{ asset('js/customer_sheet.js?v=42') }}"></script>
+    <script id="customerSheetsData" type="application/json">
+        {!! json_encode($customerSheets ?? []) !!}
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-          const sheets = @json($customerSheets ?? []);
+          const sheets = JSON.parse(
+              document.getElementById('customerSheetsData').textContent
+          );
           if (typeof window.addCustomerSheetUI === 'function') {
             sheets.forEach(s => window.addCustomerSheetUI({ id: s.id, name: s.name }));
           }

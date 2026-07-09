@@ -30,9 +30,20 @@ use App\Http\Controllers\ProfitLossController;
 use App\Http\Controllers\ProfitLossSheetsController;
 use App\Http\Controllers\FedexTrackerController;
 use App\Http\Controllers\MetalEntryController;
+use App\Http\Controllers\ServiceController;
 
 // Public view
 Route::get('/', fn () => view('gts'))->name('home');
+
+Route::get('/open-dashboard', function () {
+    session(['show_admin_login' => true]);
+    return redirect()->route('home');
+});
+
+Route::get('/exit-dashboard', function () {
+    session()->forget('show_admin_login');
+    return redirect()->route('home');
+});
 
 // Admin Dashboard Route (protected)
 // Route::middleware(['auth', 'admin'])
@@ -77,11 +88,6 @@ Route::get('/amazon-services', function () {
 // Route::get('/modern-admin-login', function () {
 //     return view('auth.modern-admin-login');
 // })->name('modern.login');
-
-Route::get('/route-list-dump', function () {
-    \Artisan::call('route:list');
-    return '<pre>' . \Artisan::output() . '</pre>';
-});
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.submit')
@@ -531,3 +537,6 @@ Route::get('/metals/{metalEntry}/items/{idx}/sell-attachments/download-all', [Me
 Route::post('/metals/{metalEntry}/items/{idx}/image', [MetalEntryController::class, 'itemImageStore']);
 Route::delete('/metals/{metalEntry}/items/{idx}/image', [MetalEntryController::class, 'itemImageDestroy']);
 Route::get('/metals/{metalEntry}/items/{idx}/image', [MetalEntryController::class, 'itemImagePreview'])->name('metals.items.image.preview');
+
+Route::get('/services/{slug}', [ServiceController::class, 'show'])
+    ->name('services.show');

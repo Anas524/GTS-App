@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{{ config('app.name', 'GTS Logistics & Air Cargo Services') }}</title>
+  <title>@yield('title', config('app.name'))</title>
 
   <link rel="icon" href="{{ asset('images/gtslogo.png') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
   {{-- jQuery FIRST; make $ available --}}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>window.$ ||= window.jQuery;</script>
-  
+  <script>
+    window.$ ||= window.jQuery;
+  </script>
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   {{-- Tailwind via CDN with config – but NOT on the home route (Bootstrap page) --}}
@@ -46,13 +59,21 @@
   {{-- Page-specific head scripts (this is where Tailwind will be pushed) --}}
   @stack('head')
 </head>
+
 <body class="{{ request()->routeIs('amazon.services') ? 'amazon-only' : '' }}">
-    
+
+  @include('partials.topbar')
+
+  @include('partials.header')
+
   @yield('content')
+
+  @include('partials.footer')
 
   <script src="{{ asset('js/script.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   @stack('scripts')
 </body>
+
 </html>

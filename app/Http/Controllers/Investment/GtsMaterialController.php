@@ -22,7 +22,8 @@ class GtsMaterialController extends Controller
         $c = ActiveCycle::id($request);
         $q = GtsMaterial::with('items')
             ->forCycle($c)                      // <- scope by active cycle
-            ->orderBy('created_at', 'desc');
+            ->orderByDesc('invoice_date')
+            ->orderByDesc('id');
 
         return response()->json($q->get());
     }
@@ -322,7 +323,7 @@ class GtsMaterialController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Attachments uploaded successfully.',
-                'attachments' => $this->formatAttachments($material)
+                'attachments' => $this->getAttachments($request, $material->id)->getData()
             ]);
     
         } catch (\Throwable $e) {
@@ -461,7 +462,7 @@ class GtsMaterialController extends Controller
     
         // FIXED PATHS (ONLY VALID ONES)
         $pathsToTry = [
-            base_path('storage/app/public/' . $path),                // ✅ YOUR REAL LIVE PATH
+            base_path('storage/app/public/' . $path),                // REAL LIVE PATH
             base_path('public_html/storage/app/public/' . $path),    // fallback (if nested)
             public_path('storage/' . $path),                         // if symlink exists
         ];
@@ -477,7 +478,7 @@ class GtsMaterialController extends Controller
     
         // STILL NOT FOUND → LOG EXACTLY
         if (!$fullPath) {
-            \Log::error('FILE NOT FOUND', [
+            Log::error('FILE NOT FOUND', [
                 'requested_path' => $path,
                 'tried_paths' => $pathsToTry
             ]);

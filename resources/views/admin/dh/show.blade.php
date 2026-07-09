@@ -1,5 +1,7 @@
 @extends('layouts.gts_app')
 
+@section('title', 'Document Hub')
+
 @push('head')
 <style>
     /* ---------- Custom scrollbar (Chrome/Edge/Safari) ---------- */

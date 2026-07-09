@@ -1,5 +1,7 @@
 @extends('layouts.gts_app')
 
+@section('title', 'Document Hub')
+
 @section('content')
 <section class="p-font py-8 px-4">
 

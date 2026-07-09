@@ -29,7 +29,7 @@
 
 @guest
   {{-- Only show login tab when logged out --}}
-  <div class="header-tab full-login-tab modern-admin-login" id="loginTab">
+  <div class="header-tab full-login-tab modern-admin-login" id="loginTab" style="display:none !important;">
       <h3 class="login-heading"><i class="fas fa-right-to-bracket"></i> GTS Portal Login</h3>
       <form method="POST" action="{{ route('login') }}" id="adminLoginForm">
           @csrf

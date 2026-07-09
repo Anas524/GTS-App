@@ -12,6 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -21,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/slim-select@2.6.0/dist/slimselect.min.js"></script>
 </head>
 
-<body class="{{ request()->routeIs('amazon.services') ? 'amazon-only' : '' }}" data-open-login="{{ session('openLogin') ? '1' : '0' }}">
+<body class="{{ request()->routeIs('amazon.services') ? 'amazon-only' : '' }}">
     <!-- Entry Animation Overlay -->
     <div id="entryOverlay">
         <img src="{{ asset('images/logo.png') }}" id="entryLogo" alt="GTS Logo" width="180">
@@ -30,7 +37,7 @@
     @include('partials.topbar')
 
     @include('partials.header')
-    
+
     @if (request()->routeIs('home'))
     <div class="scroll-offer-bar" id="scrollOfferBar">
         <div class="scroll-offer-inner">
@@ -50,13 +57,13 @@
     @endif
 
     @if (request()->routeIs('admin.*'))
-      {{-- DASHBOARD PAGE ONLY --}}
-      @yield('content')
+    {{-- DASHBOARD PAGE ONLY --}}
+    @yield('content')
     @else
-    
+
     @hasSection('content')
     {{-- Any child view (like amazon-services.blade.php) that defines @section("content") --}}
-        @yield('content')
+    @yield('content')
     @else
     {{-- HOMEPAGE ONLY (everything below stays as-is) --}}
     <!-- Slider Section-1 -->
@@ -92,12 +99,14 @@
                 <!-- Slide 3 (Video) -->
                 <div class="swiper-slide">
                     <video autoplay muted loop playsinline>
-                        <source src="{{ asset('videos/slide3.mp4') }}" type="video/mp4">
+                        <source src="{{ asset('videos/slide3.1.mp4') }}" type="video/mp4">
                     </video>
                     <div class="slide-content">
-                        <h1>Dangerous goods shipment</h1>
-                        <p>Safe and compliant transportation of hazardous materials with expert handling, certified
-                            packaging, and global regulatory compliance.</p>
+                        <div class="text-overlay">
+                            <h1>Dangerous goods shipment</h1>
+                            <p>Safe and compliant transportation of hazardous materials with expert handling, certified
+                                packaging, and global regulatory compliance.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -115,7 +124,7 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-        
+
         {{-- SPECIAL OFFER – TICKET STYLE --}}
         <div class="hero-offer-banner">
             <div class="hero-offer-left">
@@ -143,10 +152,10 @@
                 </div>
             </div>
         </div>
-        
+
     </section>
-    
-    <section id="careers-section" class="careers-teaser">
+
+    {{-- <section id="careers-section" class="careers-teaser">
         <div class="h-font p-font careers-inner">
             <div class="careers-left">
                 <div class="careers-pill">
@@ -180,7 +189,7 @@
             <div class="careers-right">
                 <div class="careers-card">
                     <div class="careers-logo-wrap">
-                        <img src="{{ asset('images/gts-logo.png') }}" alt="GTS Logistics" />
+                        <img src="{{ asset('images/gts-wt.png') }}" alt="GTS Logistics" />
                     </div>
                     <p class="careers-highlight">
                         Positions open in <strong>Dubai, UAE</strong> for
@@ -198,7 +207,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="services-section" id="services">
         <div class="section-header">
@@ -410,7 +419,7 @@
                         <li>To maintain smooth and compliant deliveries, Amazon enforces strict guidelines on box sizes,
                             pallet dimensions, and packaging</li>
                     </ul>
-                    
+
                     <div class="service-detail-footer">
                         <a href="{{ route('amazon.services') }}" class="service-more-link">
                             Check full Amazon FBA details
@@ -557,6 +566,553 @@
             </div>
 
         </div>
+    </section>
+
+    <!-- ===================================
+        GTS PREMIUM SERVICES SHOWCASE
+    =================================== -->
+
+    <section class="gts-premium-services" id="services">
+
+        <!-- LEFT STICKY CONTENT -->
+        <div class="gts-services-left">
+
+            <div class="gts-services-left-inner">
+
+                <span class="gts-services-mini">
+                    OUR SERVICES
+                </span>
+
+                <h2>
+                    Logistics solutions tailored to your business.
+                </h2>
+
+                <p>
+                    From freight forwarding and customs clearance to Amazon FBA prep, warehousing, and dangerous goods shipping, GTS delivers reliable global logistics and supply chain solutions worldwide.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SERVICES -->
+        <div class="gts-services-right">
+
+            <!-- SERVICE 01 -->
+            <article class="gts-service-item active">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">01</span>
+                    </div>
+
+                    <h3>
+                        Freight Forwarding Services
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Global freight forwarding solutions with
+                        secure cargo handling, customs clearance,
+                        and reliable international shipping support.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'freight-forwarding') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/freight-forwarding.webp"
+                            alt="Global Freight Forwarding Services UAE">
+
+                    </div>
+                </a>
+
+            </article>
+
+            <!-- SERVICE 02 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">02</span>
+                    </div>
+
+                    <h3>
+                        Air Freight Services
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Fast international air freight and air cargo
+                        services with worldwide delivery support.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'air-freight') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/air-freight.webp"
+                            alt="International Air Freight Cargo Services">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 03 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">03</span>
+                    </div>
+
+                    <h3>
+                        Sea Freight Solutions
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Cost-effective LCL and FCL sea freight
+                        solutions for secure global container shipping.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'sea-freight') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/sea-freight.webp"
+                            alt="Sea Freight Container Shipping">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 04 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">04</span>
+                    </div>
+
+                    <h3>
+                        Last-Mile Delivery
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Fast and reliable last-mile delivery
+                        solutions with secure door-to-door shipment handling.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'last-mile-delivery') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/last-Mile-delivery.webp"
+                            alt="Last Mile Delivery Services UAE">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 05 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">05</span>
+                    </div>
+
+                    <h3>
+                        Warehousing & Storage
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Secure warehousing and inventory management
+                        solutions for storage and global distribution.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'warehousing-storage') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/warehousing-storage.webp"
+                            alt="Warehousing and Storage Distribution Services">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 06 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">06</span>
+                    </div>
+
+                    <h3>
+                        Amazon FBA Prep & Labeling
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Amazon FBA prep, labeling, packaging,
+                        and compliance solutions for global sellers.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'amazon-fba-prep') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/amazon-fba.webp"
+                            alt="Amazon FBA Prep and Labeling Services">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 07 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">07</span>
+                    </div>
+
+                    <h3>
+                        Cash on Delivery (COD) Services
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Secure cash on delivery logistics solutions
+                        with reliable COD shipping support across GCC countries.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'cod-services') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/cod-services.webp"
+                            alt="Cash on Delivery COD Courier and Logistics Services">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 08 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">08</span>
+                    </div>
+
+                    <h3>
+                        Customs Clearance Services
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Fast customs clearance solutions with
+                        accurate import/export documentation
+                        and regulatory compliance support.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'customs-clearance') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/customs-clearance.webp"
+                            alt="Customs Clearance and Shipping Documentation">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 09 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">09</span>
+                    </div>
+
+                    <h3>
+                        E-Commerce Fulfillment
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        End-to-end ecommerce fulfillment solutions
+                        for order processing, packing, shipping,
+                        and fast delivery operations.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'ecommerce-fulfillment') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/ecommerce-fulfillment.webp"
+                            alt="E-Commerce Fulfillment and Order Processing Services UAE">
+
+                    </div>
+                </a> 
+
+            </article>
+
+            <!-- SERVICE 10 -->
+            <article class="gts-service-item">
+
+                <div class="gts-service-top">
+
+                    <div class="gts-service-number-wrap">
+                        <span class="gts-service-dot"></span>
+                        <span class="gts-service-number">10</span>
+                    </div>
+
+                    <h3>
+                        International & Domestic Shipping
+                    </h3>
+
+                    <p class="gts-service-desc">
+                        Reliable international and domestic shipping
+                        solutions with secure worldwide cargo delivery.
+                    </p>
+
+                </div>
+
+                <a href="{{ route('services.show', 'international-domestic-shipping') }}" class="gts-service-link">
+                    <div class="gts-service-image-wrap">
+
+                        <div class="gts-image-overlay"></div>
+
+                        <div class="gts-service-hover">
+
+                            <div class="gts-service-hover-inner">
+
+                                <span class="gts-hover-text">
+                                    Explore Service
+                                </span>
+
+                                <span class="gts-hover-arrow">
+                                    <i class="fas fa-arrow-right-long"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <img
+                            src="images/services/international-shipping.webp"
+                            alt="International and Domestic Shipping Logistics Solutions">
+
+                    </div>
+                </a>
+
+            </article>
+
+        </div>
+
     </section>
 
     <!-- section-2 -->
@@ -713,43 +1269,500 @@
             </div>
         </div>
     </section>
-    
+
+    <!-- Customer Reviews Section -->
+
+    <section class="gts-reviews-cylinder-section" id="reviews">
+
+        <div class="gts-cylinder-bg-glow"></div>
+
+        <!-- Header -->
+        <div class="gts-reviews-header">
+
+            <div class="gts-reviews-pill">
+                TESTIMONIALS
+            </div>
+
+            <h2>
+                What Our Clients Say
+            </h2>
+
+            <p>
+                Trusted by businesses worldwide for reliable logistics,
+                freight forwarding, Amazon FBA preparation,
+                and international cargo solutions.
+            </p>
+
+        </div>
+
+        <!-- Swiper -->
+        <div class="gts-cylinder-swiper gtsCylinderSwiper">
+
+            <div class="swiper-wrapper gts-cylinder-wrapper">
+
+                <!-- Review 1 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client1.avif') }}"
+                                    alt="Michael Carter">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Michael Carter</h4>
+                                <span>Amazon Seller • USA</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            GTS handled our Amazon FBA shipments flawlessly.
+                            Excellent communication, fast delivery,
+                            and professional packaging support throughout.
+                        </p>
+
+                        <div class="review-tag">
+                            Amazon FBA
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 2 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client3.avif') }}"
+                                    alt="Sarah Williams">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Sarah Williams</h4>
+                                <span>Import Business • UK</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            Professional handling and timely delivery.
+                            Their dangerous goods expertise made
+                            our shipping process completely stress-free.
+                        </p>
+
+                        <div class="review-tag">
+                            Dangerous Goods
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 3 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client2.avif') }}"
+                                    alt="Ahmed Khan">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Ahmed Khan</h4>
+                                <span>E-Commerce Brand • UAE</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            One of the most reliable logistics partners
+                            we've worked with. Smooth customs clearance
+                            and excellent warehouse coordination.
+                        </p>
+
+                        <div class="review-tag">
+                            Sea Freight
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 4 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client4.png') }}"
+                                    alt="Daniel Lee">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Daniel Lee</h4>
+                                <span>Retail Distributor • Canada</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            Their team consistently delivers on time.
+                            The tracking updates and customer support
+                            are among the best we’ve experienced.
+                        </p>
+
+                        <div class="review-tag">
+                            Air Cargo
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 5 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client5.png') }}"
+                                    alt="Olivia Brown">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Olivia Brown</h4>
+                                <span>Global Retailer • Germany</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            Excellent logistics coordination and responsive support.
+                            GTS helped streamline our international supply chain operations.
+                        </p>
+
+                        <div class="review-tag">
+                            Global Shipping
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- Review 1 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client1.avif') }}"
+                                    alt="Michael Carter">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Michael Carter</h4>
+                                <span>Amazon Seller • USA</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            GTS handled our Amazon FBA shipments flawlessly.
+                            Excellent communication, fast delivery,
+                            and professional packaging support throughout.
+                        </p>
+
+                        <div class="review-tag">
+                            Amazon FBA
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 2 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client3.avif') }}"
+                                    alt="Sarah Williams">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Sarah Williams</h4>
+                                <span>Import Business • UK</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            Professional handling and timely delivery.
+                            Their dangerous goods expertise made
+                            our shipping process completely stress-free.
+                        </p>
+
+                        <div class="review-tag">
+                            Dangerous Goods
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 3 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client2.avif') }}"
+                                    alt="Ahmed Khan">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Ahmed Khan</h4>
+                                <span>E-Commerce Brand • UAE</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            One of the most reliable logistics partners
+                            we've worked with. Smooth customs clearance
+                            and excellent warehouse coordination.
+                        </p>
+
+                        <div class="review-tag">
+                            Sea Freight
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 4 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client4.png') }}"
+                                    alt="Daniel Lee">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Daniel Lee</h4>
+                                <span>Retail Distributor • Canada</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            Their team consistently delivers on time.
+                            The tracking updates and customer support
+                            are among the best we’ve experienced.
+                        </p>
+
+                        <div class="review-tag">
+                            Air Cargo
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Review 5 -->
+                <div class="swiper-slide gts-cylinder-slide">
+                    <div class="gts-review-card">
+
+                        <div class="review-top">
+
+                            <div class="author-avatar">
+                                <img src="{{ asset('images/avatars/client5.png') }}"
+                                    alt="Olivia Brown">
+                            </div>
+
+                            <div class="review-author-info">
+                                <h4>Olivia Brown</h4>
+                                <span>Global Retailer • Germany</span>
+                            </div>
+
+                        </div>
+
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+
+                        <p class="review-text">
+                            Excellent logistics coordination and responsive support.
+                            GTS helped streamline our international supply chain operations.
+                        </p>
+
+                        <div class="review-tag">
+                            Global Shipping
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="reviews-pagination"></div>
+
+        </div>
+
+        <!-- Stats -->
+        <div class="reviews-stats">
+
+            <div class="stat-item" data-count="500">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Clients Worldwide</div>
+            </div>
+
+            <div class="stat-item" data-count="98">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Delivery Success %</div>
+            </div>
+
+            <div class="stat-item" data-count="50">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Countries Served</div>
+            </div>
+
+            <div class="stat-item" data-count="24">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Support Available 24/7</div>
+            </div>
+
+        </div>
+
+        </div>
+
+    </section>
+
     {{-- Only show contact on public (non-admin) pages --}}
     @include('partials.contact')
     @endif
-    
+
     @endif
 
     @include('partials.footer')
-    
+
     <div id="back-to-top" aria-label="Back to top">
         <i class="fa-solid fa-arrow-up"></i>
     </div>
 
-    <div id="whatsapp-chat">
-        <a href="javascript:void(0);" id="whatsappToggle">
-            <img src="{{ asset('images/whatsapp-icon.png') }}" alt="WhatsApp Chat">
-        </a>
-        <div id="chat-popup">
-            <div class="header">Hi, Welcome to GTS Logistics & Air Cargo Services! 👋</div>
-            <p>Can you chat with our team?</p>
-            <button id="start-chat" type="button">Start Chat</button>
-        </div>
-    </div>
+    @include('partials.whatsapp-chat')
 
     @if(request()->has('login'))
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const el = document.getElementById('loginTab');
-      if (!el) return;
-    
-      el.style.display = 'block';
-    
-      const headerOffset = 90; // tweak if needed (70/80/100)
-      const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-    
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    });
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById('loginTab');
+            if (!el) return;
+
+            el.style.display = 'block';
+
+            const headerOffset = 90; // tweak if needed (70/80/100)
+            const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
+        });
     </script>
     @endif
 
